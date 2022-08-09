@@ -31,6 +31,13 @@ def guessingGame():
         else:
             print('Your guess is too low, try again!')
 
+        if guess_count == 10:
+            print('Too many tries!')
+            # set guess_count = 0
+            return guess_count
+            break
+
+
 print('Howdy, what is your name?')
 name = input('type in your name: ')
 
@@ -61,3 +68,8 @@ while play_again:
     # if correct: exit loop
 # increase the number of guesses
 # print well done 
+
+
+
+
+
