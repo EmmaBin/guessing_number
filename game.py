@@ -2,9 +2,11 @@
 from random import randint
 best_score = 101
 def guessingGame():
-    secret_num = randint(1, 100)
+    low_num = int(input('Pick a low number to start with.'))
+    high_num = int(input('Now pick a high number.'))
+    secret_num = randint(low_num, high_num)
     print(secret_num)
-    print(f"{name}, I'm thinking of a number between 1 and 100.")
+    print(f"{name}, I'm thinking of a number between {low_num} and {high_num}.")
 
     guess_count = 0
     while True:
@@ -17,8 +19,8 @@ def guessingGame():
             else:
                 user_guess = int(user_guess)
 
-                if user_guess < 1 or user_guess > 100:
-                    print("ERROR: Please choose a number between 1 and 100.")
+                if user_guess < low_num or user_guess > high_num:
+                    print(f"ERROR: Please choose a number between {low_num} and {high_num}.")
                 else:
                     break
         guess_count += 1
@@ -36,23 +38,51 @@ def guessingGame():
             # set guess_count = 0
             return guess_count
             break
+            
 
+
+def com_vs_human():
+    human_num= int(input("Please think about a number: "))
+    start_num = int(input("Set a low number for computer: "))
+    end_num=int(input("Set a high number for computer: "))
+    com_guess= randint(start_num,end_num)
+    while True:
+        print(f"The computer guessed {com_guess}." )
+        user_response= input("Answer 'Too high' 'Too low' or 'You won': ").lower()
+        if user_response == "too high":
+            end_num = com_guess-1
+            com_guess=randint(start_num,end_num)
+        elif user_response == "too low":
+            start_num = com_guess+1
+            com_guess=randint(start_num,end_num)
+        else:
+            print("You won!!!")
+            break
+
+        
 
 print('Howdy, what is your name?')
 name = input('type in your name: ')
-
+print("We're going to play a number guessing game! Do you want to guess the computer's number, or do you want the computer to guess your number?")
 
 play_again = True
 while play_again: 
-    guess_count = guessingGame()
-    if guess_count < best_score:
-        best_score = guess_count
-        print(f'Congratulations, you have a new best score {best_score}!')
+    who_plays = input('Type A if you would like to guess. Type B if you would like the computer to guess: ')
+    if who_plays == 'A':
+        guess_count = guessingGame()
+        if guess_count < best_score:
+            best_score = guess_count
+            print(f'Congratulations, you have a new best score {best_score}!')
+        else:
+            print(f'You still have not beaten your best score of {best_score}, try again!')    
     else:
-        print(f'You still have not beaten your best score of {best_score}, try again!')    
+        com_vs_human()
     player_choice = input('Would you like to play again? y/n: ')
     if player_choice == 'n':
         play_again = False
+    
+
+
         
 
 
